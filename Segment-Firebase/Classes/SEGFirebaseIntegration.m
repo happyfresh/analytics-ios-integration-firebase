@@ -184,7 +184,12 @@ NSDictionary *formatEventProperties(NSDictionary *dictionary)
             key = [[trimmedKey stringByReplacingOccurrencesOfString:@" " withString:@"_"] stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
         }
         if ([data isKindOfClass:[NSNumber class]]) {
-            data = [NSNumber numberWithDouble:[data doubleValue]];
+            if ([key isEqualToString:kFIRParameterQuantity]) {
+                data = [NSNumber numberWithInteger:[data integerValue]];
+            } else {
+                data = [NSNumber numberWithDouble:[data doubleValue]];
+            }
+
             [output setObject:data forKey:key];
         } else {
             [output setObject:data forKey:key];
